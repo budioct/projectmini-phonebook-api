@@ -53,7 +53,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Transactional(readOnly = true)
-    public Page<AddressDTO.AddressResponse> getListAddress(Map<String, Object> filter) {
+    public Page<AddressDTO.AddressResponse> getListAddress(Users users, Map<String, Object> filter) {
         Models<Addresses> models = new Models<>();
         Page<Addresses> addressesPage = addressRepository.findAll(models.where(filter), models.pageableSort(filter));
         List<AddressDTO.AddressResponse> addressResponse = addressesPage.getContent().stream().map(AddressDTO::toAddressResponse).collect(Collectors.toList());

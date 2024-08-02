@@ -44,7 +44,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ContactDTO.ContactResponse> getListContacts(Map<String, Object> filter) {
+    public Page<ContactDTO.ContactResponse> getListContacts(Users users, Map<String, Object> filter) {
         Models<Contacts> models = new Models<>();
         Page<Contacts> contactsPage = contactRepository.findAll(models.where(filter), models.pageableSort(filter));
         List<ContactDTO.ContactResponse> contactResponse = contactsPage.getContent().stream().map(ContactDTO::toContactResponse).collect(Collectors.toList());

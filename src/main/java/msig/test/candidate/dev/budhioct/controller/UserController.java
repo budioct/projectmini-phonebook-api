@@ -80,8 +80,9 @@ public class UserController {
             path = "/api/users",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public RestResponse.list<List<UserDTO.UserResponse>> getListUsers(@RequestParam Map<String, Object> filter) {
-        Page<UserDTO.UserResponse> userResponses = service.getListUsers(filter);
+    public RestResponse.list<List<UserDTO.UserResponse>> getListUsers(Users users,
+                                                                      @RequestParam Map<String, Object> filter) {
+        Page<UserDTO.UserResponse> userResponses = service.getListUsers(users, filter);
         return RestResponse.list.<List<UserDTO.UserResponse>>builder()
                 .status_code(Constants.OK)
                 .message(Constants.ITEM_EXIST_MESSAGE)

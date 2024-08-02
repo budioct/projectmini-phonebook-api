@@ -9,7 +9,7 @@ import java.util.Map;
 public interface AddressService {
 
     AddressDTO.AddressResponse create(Users users, AddressDTO.CreateAddressRequest request);
-    Page<AddressDTO.AddressResponse> getListAddress(Map<String, Object> filter);
+    Page<AddressDTO.AddressResponse> getListAddress(Users users, Map<String, Object> filter);
     AddressDTO.AddressResponse getDetail(Users users, AddressDTO.DetailAddressRequest request);
     AddressDTO.AddressResponse update(Users users, AddressDTO.UpdateAddressRequest request);
     void delete(Users users, AddressDTO.DetailAddressRequest request);

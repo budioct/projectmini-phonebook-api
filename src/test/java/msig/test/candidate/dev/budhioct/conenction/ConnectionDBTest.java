@@ -15,7 +15,6 @@ public class ConnectionDBTest {
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
-    @Disabled
     @Test
     void testEntityManagerFactorySuccess() {
 

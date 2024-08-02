@@ -42,8 +42,9 @@ public class ContactController {
             path = "/api/contacts",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public RestResponse.list<List<ContactDTO.ContactResponse>> getList(@RequestParam Map<String, Object> filter) {
-        Page<ContactDTO.ContactResponse> contactResponses = service.getListContacts(filter);
+    public RestResponse.list<List<ContactDTO.ContactResponse>> getList(Users users,
+                                                                       @RequestParam Map<String, Object> filter) {
+        Page<ContactDTO.ContactResponse> contactResponses = service.getListContacts(users, filter);
         return RestResponse.list.<List<ContactDTO.ContactResponse>>builder()
                 .status_code(Constants.OK)
                 .message(Constants.ITEM_EXIST_MESSAGE)
@@ -62,7 +63,7 @@ public class ContactController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public RestResponse.object<ContactDTO.ContactResponse> getDetail(Users users,
-                                                                            @PathVariable("contactId") Long id) {
+                                                                     @PathVariable("contactId") Long id) {
         ContactDTO.ContactResponse contactResponse = service.getDetail(users, id);
         return RestResponse.object.<ContactDTO.ContactResponse>builder()
                 .status_code(Constants.OK)

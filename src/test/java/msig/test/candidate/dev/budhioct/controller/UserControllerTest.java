@@ -3,8 +3,11 @@ package msig.test.candidate.dev.budhioct.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import msig.test.candidate.dev.budhioct.controller.handler.RestResponse;
+import msig.test.candidate.dev.budhioct.dto.ContactDTO;
 import msig.test.candidate.dev.budhioct.dto.UserDTO;
 import msig.test.candidate.dev.budhioct.model.Users;
+import msig.test.candidate.dev.budhioct.repository.AddressRepository;
+import msig.test.candidate.dev.budhioct.repository.ContactRepository;
 import msig.test.candidate.dev.budhioct.repository.UserRepository;
 import msig.test.candidate.dev.budhioct.utilities.BCrypt;
 import org.junit.jupiter.api.Assertions;
@@ -17,6 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultHandler;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.MockMvcBuilder.*;
@@ -35,10 +40,18 @@ public class UserControllerTest {
     private UserRepository userRepository;
 
     @Autowired
+    private ContactRepository contactRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
+        addressRepository.deleteAll();
+        contactRepository.deleteAll();
         userRepository.deleteAll();
     }
 
@@ -454,7 +467,122 @@ public class UserControllerTest {
         });
     }
 
+    @Test
+    void testGetListUsersUnauthorized() throws Exception {
+
+        mockMvc.perform(
+                get("/api/users")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpectAll(
+                status().isUnauthorized()
+        ).andDo(new ResultHandler() {
+            @Override
+            public void handle(MvcResult result) throws Exception {
+                RestResponse.restError<String> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+                });
+
+                Assertions.assertNotNull(response);
+                Assertions.assertEquals(401, response.getStatus_code());
+            }
+        });
+    }
+
+    @Test
+    void testGetListUsersNotFound() throws Exception {
+
+        Users users = new Users();
+        users.setUsername("budioct");
+        users.setPassword(BCrypt.hashpw("rahasia", BCrypt.gensalt()));
+        users.setName("budhi octaviansyah");
+        users.setToken("test");
+        users.setTokenExpiredAt(System.currentTimeMillis() + 10000000000L);
+        userRepository.save(users);
+
+        mockMvc.perform(
+                get("/api/users")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-API-TOKEN", "test")
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(new ResultHandler() {
+            @Override
+            public void handle(MvcResult result) throws Exception {
+                RestResponse.list<List<ContactDTO.ContactResponse>> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+                });
+
+                Assertions.assertNotNull(response.getData());
+
+                Assertions.assertEquals(1, response.getData().size());
+                Assertions.assertEquals(0, response.getPaging().getCurrentPage());
+                Assertions.assertEquals(1, response.getPaging().getTotalPage());
+                Assertions.assertEquals(10, response.getPaging().getSizePage());
+
+            }
+        });
+    }
+
+    @Test
+    void testGetListUsersSuccess() throws Exception {
+
+        for (int i = 0; i < 10; i++) {
+            Users users = new Users();
+            users.setUsername("budioct");
+            users.setPassword(BCrypt.hashpw("rahasia", BCrypt.gensalt()));
+            users.setName("budhi octaviansyah");
+            users.setToken("test");
+            users.setTokenExpiredAt(System.currentTimeMillis() + 10000000000L);
+            userRepository.save(users);
+        }
+
+        mockMvc.perform(
+                get("/api/users")
+                        .queryParam("username", "budioct")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-API-TOKEN", "test")
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(new ResultHandler() {
+            @Override
+            public void handle(MvcResult result) throws Exception {
+                RestResponse.list<List<ContactDTO.ContactResponse>> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+                });
+
+                Assertions.assertNotNull(response.getData());
+
+                Assertions.assertEquals(10, response.getData().size());
+                Assertions.assertEquals(0, response.getPaging().getCurrentPage());
+                Assertions.assertEquals(1, response.getPaging().getTotalPage());
+                Assertions.assertEquals(10, response.getPaging().getSizePage());
+
+            }
+        });
+
+        mockMvc.perform(
+                get("/api/users")
+                        .queryParam("name", "budhi octaviansyah")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-API-TOKEN", "test")
+        ).andExpectAll(
+                status().isOk()
+        ).andDo(new ResultHandler() {
+            @Override
+            public void handle(MvcResult result) throws Exception {
+                RestResponse.list<List<ContactDTO.ContactResponse>> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+                });
+
+                Assertions.assertNotNull(response.getData());
+
+                Assertions.assertEquals(10, response.getData().size());
+                Assertions.assertEquals(0, response.getPaging().getCurrentPage());
+                Assertions.assertEquals(1, response.getPaging().getTotalPage());
+                Assertions.assertEquals(10, response.getPaging().getSizePage());
+
+            }
+        });
+    }
+
 }
-
-
-

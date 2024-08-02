@@ -44,8 +44,9 @@ public class AddressController {
             path = "/api/addresses",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public RestResponse.list<List<AddressDTO.AddressResponse>> getList(@RequestParam Map<String, Object> filter) {
-        Page<AddressDTO.AddressResponse> addressResponses = service.getListAddress(filter);
+    public RestResponse.list<List<AddressDTO.AddressResponse>> getList(Users users,
+                                                                       @RequestParam Map<String, Object> filter) {
+        Page<AddressDTO.AddressResponse> addressResponses = service.getListAddress(users, filter);
         return RestResponse.list.<List<AddressDTO.AddressResponse>>builder()
                 .status_code(Constants.OK)
                 .message(Constants.ITEM_EXIST_MESSAGE)

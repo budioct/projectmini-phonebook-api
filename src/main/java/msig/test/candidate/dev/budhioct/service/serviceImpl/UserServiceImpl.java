@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO.UserResponse> getListUsers(Map<String, Object> filter) {
+    public Page<UserDTO.UserResponse> getListUsers(Users users, Map<String, Object> filter) {
         Models<Users> models = new Models<>();
         Page<Users> usersPage = userRepository.findAll(models.where(filter), models.pageableSort(filter));
         List<UserDTO.UserResponse> usersResponse = usersPage.getContent().stream().map(UserDTO::toUserResponse).collect(Collectors.toList());

@@ -11,4 +11,6 @@ public interface ContactRepository extends JpaRepository<Contacts, Long>, JpaSpe
 
     Optional<Contacts> findFirstByUserAndId(Users user, Long id);
 
+    Optional<Contacts> findFirstByUser(Users user);
+
 }

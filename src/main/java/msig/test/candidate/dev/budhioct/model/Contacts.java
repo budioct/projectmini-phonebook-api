@@ -29,7 +29,7 @@ public class Contacts {
     @Column(name = "last_name", length = 100)
     private String lastName;
 
-    @Column(name = "phone", length = 12)
+    @Column(name = "phone", length = 20)
     private String phone;
 
     @Column(name = "email", length = 150)

@@ -12,7 +12,7 @@ public interface UserService {
     UserDTO.TokenResponse login(UserDTO.LoginUserRequest request);
     void logout(Users users);
     UserDTO.UserResponse update(Users users, UserDTO.UpdateUserRequest request);
-    Page<UserDTO.UserResponse> getListUsers(Map<String, Object> filter);
+    Page<UserDTO.UserResponse> getListUsers(Users users, Map<String, Object> filter);
     UserDTO.UserResponse getDetailUser(Users users);
 
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 public interface ContactService {
 
     ContactDTO.ContactResponse create(Users users, ContactDTO.CreateContactRequest request);
-    Page<ContactDTO.ContactResponse> getListContacts(Map<String, Object> filter);
+    Page<ContactDTO.ContactResponse> getListContacts(Users users, Map<String, Object> filter);
     ContactDTO.ContactResponse getDetail(Users users, Long id);
     ContactDTO.ContactResponse update(Users users, ContactDTO.UpdateContactRequest request);
     void delete(Users users, Long id);
