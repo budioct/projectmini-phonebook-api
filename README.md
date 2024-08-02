@@ -36,7 +36,7 @@ This project is a RESTful API for an Phonebook application developed using Sprin
 ### Prerequisites
 
 - Java 21
-- MysqlSQL
+- MySQL
 - Maven
 - Spring Boot
 - (For Dummy Data)
