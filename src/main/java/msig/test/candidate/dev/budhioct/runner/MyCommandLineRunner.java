@@ -34,6 +34,10 @@ public class MyCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        addressRepository.deleteAll();
+        contactRepository.deleteAll();
+        userRepository.deleteAll();
+
         Users users = new Users();
         users.setUsername("budioct");
         users.setPassword(BCrypt.hashpw("rahasia", BCrypt.gensalt()));
