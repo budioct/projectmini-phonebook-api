@@ -66,5 +66,6 @@ For API documentation on directory docs/
 - contact.md
 - address.md
 
-To make requests with Postman, on directory docs/
-- MSIG Test Candidate.postman_collection.json
+To make requests with Postman 
+- To make requests with Postman, visit here: https://documenter.getpostman.com/view/7284698/2sA3kdBxyP
+- on directory docs/ MSIG Test Candidate.postman_collection.json
