@@ -39,7 +39,7 @@ This project is a RESTful API for an Phonebook application developed using Sprin
 - MySQL
 - Maven
 - Spring Boot
-- (For Dummy Data)
+- Faker (For Dummy Data)
 
 ### Installation
 
@@ -69,3 +69,19 @@ For API documentation on directory docs/
 To make requests with Postman 
 - To make requests with Postman, visit here: https://documenter.getpostman.com/view/7284698/2sA3kdBxyP
 - on directory docs/ MSIG Test Candidate.postman_collection.json
+
+## Database Initialization
+
+When building and running the application, the database is automatically populated with dummy data using the Faker library. This includes creating initial users and products to help you get started quickly.
+
+### Admin User
+- **Username**: budioct
+- **Password**: rahasia
+
+### Dummy Data
+In addition to the initial contacts & addresses, the Faker library generates a variety of dummy data, including:
+
+- **Contacts**: Additional users with randomly generated first_name, last_name, email, phone and other details.
+- **Addresses**: Additional contacts with randomly generated street, city, province, country, postal_code and other details.
+
+This dummy data provides a rich dataset for testing and development purposes.
