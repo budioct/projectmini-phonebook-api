@@ -45,22 +45,26 @@ This project is a RESTful API for an Phonebook application developed using Sprin
 
 1. Clone the repository:
    ```bash
-   gh repo clone dwididit/ecommerce-rabbitmq-kafka
-   cd ecommerce-rabbitmq-kafka/
+   git clone https://github.com/budioct/projectmini-phonebook-api.git
+   cd projectmini-phonebook-api/
    ```
 
 2. Build .jar using Maven
    ```bash
-   mvn clean package
+   mvn clean compile package
    ```
 
-3. Build and run with Docker Compose
+3. Build and run spring boot application
    ```bash
-   docker-compose up --build
+   mvn spring-boot:run
    ```
 
-The application will run on http://localhost:9090
+The application will run on http://localhost:8080
 
-For API documentation on Swagger, visit here: http://localhost:9090/swagger-ui/index.html
+For API documentation on directory docs/
+- user.md
+- contact.md
+- address.md
 
-To make requests with Postman, visit here: https://documenter.getpostman.com/view/32199524/2sA3XTezmK
+To make requests with Postman, on directory docs/
+- MSIG Test Candidate.postman_collection.json
