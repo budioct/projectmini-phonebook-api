@@ -51,7 +51,7 @@ This project is a RESTful API for an Phonebook application developed using Sprin
 
 2. Build .jar using Maven
    ```bash
-   mvn clean compile package
+   mvn clean compile test package
    ```
 
 3. Build and run spring boot application

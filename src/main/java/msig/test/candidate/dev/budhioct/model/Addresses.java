@@ -26,13 +26,13 @@ public class Addresses {
     @Column(name = "street")
     private String street;
 
-    @Column(name = "city", length = 50)
+    @Column(name = "city", length = 150)
     private String city;
 
-    @Column(name = "province", length = 50)
+    @Column(name = "province", length = 150)
     private String province;
 
-    @Column(name = "country", length = 50)
+    @Column(name = "country", length = 150)
     private String country;
 
     @Column(name = "postal_code", length = 6)
