@@ -33,6 +33,12 @@ This project is a RESTful API for an Phonebook application developed using Sprin
 - Handle errors gracefully with custom exception handling
 - Return data in a structured JSON format
 
+## Entity Relationship Diagram (ERD)
+
+<div align="left">
+<img src="./docs/ERD.png" alt="ERD"  />
+</div>
+
 ### Prerequisites
 
 - Java 21
@@ -72,7 +78,7 @@ To make requests with Postman
 
 ## Database Initialization
 
-When building and running the application, the database is automatically populated with dummy data using the Faker library. This includes creating initial users and products to help you get started quickly.
+When building and running the application, the database is automatically populated with dummy data using the Faker library. This includes creating initial users and contacts to help you get started quickly.
 
 ### Admin User
 - **Username**: budioct
